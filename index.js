@@ -20,18 +20,25 @@ app.post('/webhook', line.middleware(config), (req, res) => {
     .then((result) => res.json(result));
 });
 
-// event handler
 function handleEvent(event) {
   if (event.type !== 'message' || event.message.type !== 'text') {
-    // ignore non-text-message event
     return Promise.resolve(null);
   }
 
-  // create a echoing text message
-  const echo = { type: 'text', text: event.message.text };
+  let response = {
+    type: 'text',
+    text: event.message.text
+  };
 
-  // use reply API
-  return client.replyMessage(event.replyToken, echo);
+  if (event.message.text == 'pizza') {
+    response = {
+      type: 'image',
+      originalContentUrl: 'https://cdn.pixabay.com/photo/2017/06/27/08/41/pizza-2446700_1280.jpg',
+      previewImageUrl: 'https://s-media-cache-ak0.pinimg.com/736x/1d/6d/9e/1d6d9eb9e581b09b1383c0324cf3c329--pizza-icon-icons.jpg'
+    }
+  }
+  
+  return client.replyMessage(event.replyToken, response);
 }
 
 // listen on port
