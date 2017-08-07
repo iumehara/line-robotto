@@ -1,8 +1,11 @@
 {
   "name": "linebot",
-  "version": "1.0",
+  "version": "1.0.0",
   "description": "A LINE bot",
   "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
   "dependencies": {
     "@line/bot-sdk": "^2.0.0",
     "express": "^4.15.4"
